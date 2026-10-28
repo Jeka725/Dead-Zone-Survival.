@@ -1,0 +1,36 @@
+name: Android APK
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    name: Build and validate Android APK
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.4.1
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Validate Godot project
+        run: |
+          godot --version
+          godot --headless --editor --path . --quit
+      - name: Export Android APK
+        run: |
+          mkdir -p build
+          godot --headless --path . --export-debug "Android" build/DeadZoneSurvival.apk
+      - name: Validate APK archive
+        run: |
+          test -s build/DeadZoneSurvival.apk
+          unzip -t build/DeadZoneSurvival.apk
+          if command -v aapt >/dev/null 2>&1; then aapt dump badging build/DeadZoneSurvival.apk; fi
+      - name: Upload APK only after successful validation
+        uses: actions/upload-artifact@v4
+        with:
+          name: DeadZoneSurvival-APK
+          path: build/DeadZoneSurvival.apk
+          if-no-files-found: error
+          retention-days: 14
