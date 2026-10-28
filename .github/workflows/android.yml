@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.4.1
+      options: --user 0
     env:
       HOME: /root
     steps:
