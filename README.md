@@ -1,23 +1,23 @@
 # Dead Zone: Survival
 
-A lightweight, fully offline 3D survival prototype for Android, built with Godot 4 and procedural low-poly assets.
+A fully offline low-poly 3D survival prototype for Android, built with Godot 4. The environment is generated procedurally so the first build stays compact and does not need a network connection.
 
-## Current playable systems
+## Gameplay in this prototype
 - First-person movement and touch look controls
-- Procedural low-poly forest and abandoned outpost
-- Mutant enemies with chase and attack behavior
-- Rifle firing, ammo, hit detection and enemy drops
-- Resource pickups, inventory, medkits and basic crafting
-- Local save/load; pause/close attempts to save
-- Android-friendly GL Compatibility renderer and no network permissions
+- Procedural pine forest, fog, an abandoned checkpoint and salvage yard
+- Mutants that approach the player; use sprint and dash to escape
+- Resource pickups: wood, stone, scrap and food
+- Inventory, food healing, medkits and a simple crafting recipe
+- Local save/load stored on the device
+- Mobile GL Compatibility renderer; no internet permission
 
 ## Controls
-- Touch: drag on the left side to move, drag on the right side to look
-- FIRE: shoot; USE: collect nearby resources
-- BAG: inventory; CRAFT: craft a medkit; MEDKIT: heal; SAVE: save locally
-- Desktop testing: WASD, mouse look (right-click to capture), F shoot, E collect, I inventory, C craft, H heal, F5 save, Shift sprint
+- Touch: drag on the left side to move; drag on the right side to look
+- DASH: quick escape; COLLECT: pick up nearby supplies
+- BAG: inventory; CRAFT: create a medkit; EAT: restore health; SAVE: save locally
+- Desktop: WASD, mouse look (right-click to capture), E collect, I inventory, C craft, H eat/use medkit, F5 save, Shift dash
 
 ## Build
-Push to the main branch or manually run Actions → Android APK. The workflow validates the project, exports an ARM64 Android APK, tests the APK ZIP archive, and uploads the artifact only after every validation step passes.
+Push to the main branch or manually run Actions → Android APK. The workflow checks script parsing and runtime startup, exports an ARM64 Android APK, validates the archive, and uploads the APK only if all checks pass.
 
-This is an early playable prototype, not a finished commercial game. Visuals are generated from primitives to keep the build small; more detailed models, sound, animation, and device testing remain future work.
+This is an early playable prototype, not a finished commercial game. Models are procedural primitives; detailed character animation, sound, additional locations, and real-device performance testing remain future work.
