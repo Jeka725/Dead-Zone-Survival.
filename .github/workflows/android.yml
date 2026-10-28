@@ -11,13 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.4.1
+    env:
+      HOME: /root
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-      - name: Validate Godot project
+      - name: Validate Godot project and scripts
         run: |
           godot --version
-          godot --headless --editor --path . --quit
+          godot --headless --editor --path . --quit > /tmp/godot-editor.log 2>&1
+          cat /tmp/godot-editor.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' /tmp/godot-editor.log; then exit 1; fi
+          godot --headless --path . --quit-after 2 > /tmp/godot-run.log 2>&1
+          cat /tmp/godot-run.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Invalid call|Invalid get index|Node not found' /tmp/godot-run.log; then exit 1; fi
       - name: Export Android APK
         run: |
           mkdir -p build
